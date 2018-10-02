@@ -16,6 +16,42 @@ header h1 {
   color: white;
 }
 
+.game-section {
+  display: flex;
+}
+
+.token {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.token-drag {
+  border: 1px solid white;
+}
+
+.player1 {
+  background-color: blue;
+}
+
+.played1 {
+  background-color: darkblue;
+}
+
+.player2 {
+  background-color: red;
+}
+
+.played2 {
+  background-color: darkred;
+}
+
+.invisible {
+  visibility: 0;
+}
+
 .gameboard {
   width: 150px;
   display: grid;
@@ -26,12 +62,18 @@ header h1 {
 .cell {
   width: 50px;
   height: 50px;
-  background-color: rgb(185, 184, 184); 
+  background-color: rgb(184, 184, 184); 
   border: 1px solid white;
   display: grid;
   justify-content: center;
   align-content: center;
   font-size: 1.5rem;
+  transition: all ease 1s;
+}
+
+.cell-hovered {
+  background-color: rgb(128, 128, 128); 
+  transition: all ease 1s;
 }
 
 .winner {

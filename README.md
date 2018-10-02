@@ -14,21 +14,21 @@
     - [x] event listeners on each cell
     - [x] click changes text content to X or O alternatively
 
-- [ ] Create an array of arrays of winning options
+- [x] Create an array of arrays of winning options
 
 - [x] Create an array for each of the players moves. This will get pushed to with the cell ID each time the player clicks.
 
-- [ ] Create game logic, if the players array includes a combo of any of the winning options then that player wins.
-  - [ ] loop through the winning options each time the player plays.
-  - [ ] check to see if they match.
-  - [ ] if they match display the winner.
-  - [ ] add to a win count for each player
+- [x] Create game logic, if the players array includes a combo of any of the winning options then that player wins.
+    - [x] loop through the winning options each time the player plays.
+    - [x] check to see if they match.
+    - [x] if they match display the winner.
+    - [ ] add to a win count for each player
 
-- [ ] Make the gameboard cells to receive dropped elements.
+- [x] Make the gameboard cells to receive dropped elements.
 
-- [ ] Create 5x dragable elements for each player.
+- [x] Create 5x dragable elements for each player.
 
-- [ ] If the element is dropped in a cell it adds to the players play list.
+- [x] If the element is dropped in a cell it adds to the players play list.
 
 - [ ] Styles 
     - [ ] the dragable elements with tic-tacs or toes.

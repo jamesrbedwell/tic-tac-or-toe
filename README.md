@@ -16,7 +16,7 @@
 
 - [ ] Create an array of arrays of winning options
 
-- [ ] Create an array for each of the players moves. This will get pushed to with the cell ID each time the player clicks.
+- [x] Create an array for each of the players moves. This will get pushed to with the cell ID each time the player clicks.
 
 - [ ] Create game logic, if the players array includes a combo of any of the winning options then that player wins.
   - [ ] loop through the winning options each time the player plays.

@@ -6,12 +6,21 @@ body {
   margin: 0;
   background-color: rgb(37, 37, 37);
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header h1 {
+  text-align: center;
+  color: white;
 }
 
 .gameboard {
   width: 150px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
 }
 
 .cell {
@@ -23,4 +32,9 @@ body {
   justify-content: center;
   align-content: center;
   font-size: 1.5rem;
+}
+
+.winner {
+  text-align: center;
+  color: white;
 }

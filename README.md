@@ -10,9 +10,9 @@
     - [x] Display: Grid?
     - [x] Each cell has an ID and a class of cell for styling.
 
-- [ ] Make gameboard interactive
-    - [ ] event listeners on each cell
-    - [ ] click changes text content to X or O alternatively
+- [x] Make gameboard interactive
+    - [x] event listeners on each cell
+    - [x] click changes text content to X or O alternatively
 
 - [ ] Create an array of arrays of winning options
 

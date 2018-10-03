@@ -35,6 +35,17 @@
     - [ ] headings etc.
     - [ ] inputs for player names
 
+#STYLES BROKEN DOWN
+
+- [ ] Create 3 100% divs, with buttons that link back and forward with a transition.
+
+#EXTRA HTML/JS
+
+- [ ] Input for players to put in their names
+- [ ] Option to choose their tokens
+- [ ] Grid where they can drag their tokens over to the board 
+- [ ] Once square dropped in, no longer droppable!
+
 
 - [ ] Create an option to allow players to insert usernames.
 

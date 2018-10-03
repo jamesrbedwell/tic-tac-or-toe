@@ -1,0 +1,237 @@
+body {
+  margin: 0;
+  overflow: scroll;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.page1, .page2, .page3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p1name, .p2name {
+  text-transform: uppercase;
+}
+
+#1, #2, #4, #5, #7, #9 {
+  border-right: 4px solid yellow;
+}
+
+#1, #2, #3, #4, #5, #6 {
+  border-bottom: 4px solid yellow;
+}
+
+/* -------PAGE 1-------- */
+.page1 {
+  width: 100%;
+  height: 100vh;
+  background-color: #89fbdf;
+  
+}
+
+.logo {
+  width: 70%;
+  margin-top: 2%;
+}
+
+.page1 p {
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.name-input {
+  border-radius: 10px;
+  border: 3px dashed rgb(61, 105, 247);
+  background-color: #fca754;
+  font-size: 1rem;
+  color: rgb(255, 47, 175);
+  padding: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  width: 150px
+  
+}
+
+.name-input::placeholder {
+  color: white;
+}
+
+.name-input:focus {
+  outline: none;
+}
+
+form button {
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: 1px 1px rgb(70, 70, 70);
+  text-transform: uppercase;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 2px solid;
+  box-shadow: 3px 3px yellow;
+  border-color: rgb(251, 255, 0);
+  border-radius: 5px;
+  height: 30px;
+  transition: all ease-in-out 0.3s;
+}
+
+form button:hover {
+  box-shadow: 3px 3px hotpink;
+  border-color: hotpink;
+  transition: all ease-in-out 0.3s;
+}
+
+form button:focus {
+  outline: none;
+}
+
+/* ------- PAGE 2 -------- */
+
+.page2 {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 157, 255);
+}
+
+.page2 .container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25%;
+  width: 100%;
+}
+
+.page2 h1 {
+  font-size: 2rem;
+}
+
+.choose-token {
+  width: 30%;
+  text-align: center;
+}
+
+.tokens {
+  display: flex;
+}
+
+.tokens img {
+  width: 50%;
+  height: 100px;
+}
+
+
+/* ------- PAGE 3 -------- */
+
+.page3 {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(170, 3, 192);
+}
+
+.page3 .container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.whos-turn {
+  font-size: 3em;
+  text-transform: uppercase;
+  color: rgb(255, 115, 0);
+  text-shadow: 5px 5px rgb(185, 84, 1);
+  margin-bottom: 0;
+}
+
+.p1 {
+  width: 25%;
+  height: 50vh;
+  text-align: center;
+}
+
+.p2 {
+  width: 25%;
+  height: 50vh;
+  text-align: center;
+}
+
+.p1 h1, .p2 h1 {
+  font-size: 2rem;
+}
+
+.p1 {
+  color: rgb(0, 255, 0);
+}
+
+.p2 {
+  color: rgb(0, 225, 255);
+}
+
+.gamearea {
+  width: 50%;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameboard {
+  width: 375px;
+  height: 375px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  transform: skew(-5deg);
+  margin-left: -60px;
+  
+}
+
+.cell {
+  width: 135px;
+  height: 135px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell:not(:nth-child(3)):not(:nth-child(6)):not(:nth-child(9)) {
+  border-right: 10px solid yellow;
+  box-shadow: 10px 0px black;
+}
+
+.cell:not(:nth-child(7)):not(:nth-child(8)):not(:nth-child(9)) {
+  border-bottom: 10px solid yellow;
+}
+
+.cell-hovered {
+  background-color: rgba(255,255,255,0.3);
+}
+
+.tictac-token {
+  width: 120px;
+  filter: drop-shadow( 5px 5px 10px #000 );
+  cursor: pointer;
+}
+
+.tictac-played {
+  width: 120px;
+  filter: drop-shadow( 2px 2px 2px #000 );
+}
+
+.toe-token {
+  width: 80px;
+  filter: drop-shadow( 5px 5px 10px #000 );
+  cursor: pointer;
+}
+
+.toe-played {
+  width: 80px;
+  filter: drop-shadow( 1px 1px #000 );
+}
+
+.drag-token {
+  filter: drop-shadow( 10px 10px 30px #000 );
+}
+
+.invisible {
+  visibility: hidden;
+}

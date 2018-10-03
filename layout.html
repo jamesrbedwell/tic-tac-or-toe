@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Layout Template</title>
+  <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+  <section class='page1'> <!-- Page 1 Start -->
+    <img src="images/logo.png" alt="" class="logo">
+    <p>PLEASE ENTER YOUR PLAYER NAME BELOW!</p>
+    <form action="">
+      <input type="text" class="name-input player1-name" placeholder="Player1 Name">
+      <button class="play-solo-btn">Play Solo!</button>
+      <input type="text" class="name-input player2-name" placeholder="Player2 Name">
+      <button class="lets-go-btn">Let's Go!</button>
+    </form>
+  </section> <!-- Page 1 End -->
+
+  <section class='page2'> <!-- Page 2 Start -->
+    <div class="container">
+
+      <article class="choose-token">
+        <h1 class="p1name">Player 1 Name</h1>
+        <p>CHOOSE YOUR TOKEN!</p>
+        <div class="p1tokens tokens">
+          <img src="images/tictac.svg" alt="" class="tictac">
+          <img src="images/toe.svg" alt="" class="toe">
+        </div>
+      </article>
+
+      <article class="choose-token">
+        <h1 class="p2name">Player 2 Name</h1>
+        <p>CHOOSE YOUR TOKEN!</p>
+        <div class="p2tokens tokens">
+          <img src="images/tictac.svg" alt="" class="tictac">
+          <img src="images/toe.svg" alt="" class="toe">
+        </div>
+      </article>
+    </div>
+  </section> <!-- Page 2 End -->
+  
+  <section class='page3'> <!-- Page 3 Start -->
+    <h1 class="whos-turn"></h1>
+    <div class="container">  
+      <div class="p1">
+        <h1 class="p1name">Player 1 Name</h1>
+        <img src="images/tictac.svg" alt="" class="tictac-token" draggable="true">
+        <img src="images/tictac.svg" alt="" class="tictac-token" draggable="true">
+        <img src="images/tictac.svg" alt="" class="tictac-token" draggable="true">
+        <img src="images/tictac.svg" alt="" class="tictac-token" draggable="true">
+        <img src="images/tictac.svg" alt="" class="tictac-token" draggable="true">
+      </div>
+
+      <div class="gamearea">
+        <div class="gameboard">
+          <div class="cell" id="1"></div>
+          <div class="cell" id="2"></div>
+          <div class="cell" id="3"></div>
+          <div class="cell" id="4"></div>
+          <div class="cell" id="5"></div>
+          <div class="cell" id="6"></div>
+          <div class="cell" id="7"></div>
+          <div class="cell" id="8"></div>
+          <div class="cell" id="9"></div>
+        </div>
+      </div>
+
+      <div class="p2">
+          <h1 class="p2name">Player 2 Name</h1>
+          <img src="images/toe.svg" alt="" class="toe-token" draggable="true">
+          <img src="images/toe.svg" alt="" class="toe-token" draggable="true">
+          <img src="images/toe.svg" alt="" class="toe-token" draggable="true">
+          <img src="images/toe.svg" alt="" class="toe-token" draggable="true">
+          <img src="images/toe.svg" alt="" class="toe-token" draggable="true">
+      </div>
+    </div>
+    <h1 class="winner-text"></h1>
+  </section> <!-- Page 3 End -->
+
+  <script src="layout.js"></script>
+</body>
+</html>

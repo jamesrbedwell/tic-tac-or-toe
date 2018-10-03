@@ -7,7 +7,7 @@ let player2tokens = document.querySelectorAll('.player2');
 
 function getPlayableTokens() {
   player1tokens = document.querySelectorAll('.player1');
-let player2tokens = document.querySelectorAll('.player2');
+  player2tokens = document.querySelectorAll('.player2');
 }
 
 // gameboard.addEventListener('click', playersTurn);
@@ -18,7 +18,7 @@ let whichPlayer = 'Player1';
 let player1Turns = [];
 let player2Turns = [];
 
-function changePlayer() {
+function allowPlayer() {
   if (whichPlayer === 'Player1') {
     player1tokens.forEach(p1tok => p1tok.draggable = true);
     player2tokens.forEach(p2tok => p2tok.draggable = false);
@@ -27,6 +27,8 @@ function changePlayer() {
     player1tokens.forEach(p1tok => p1tok.draggable = false);
   }
 }
+
+allowPlayer();
 
 const winningCombos = [
   [1,2,3],
@@ -83,12 +85,15 @@ function dragEnter(event) {
 
 function dragLeave() {
   event.target.classList.remove('cell-hovered');
-
 }
 
 function dragDrop() {
   event.target.append(draggedItem);
   event.target.classList.remove('cell-hovered');
+  event.target.removeEventListener('dragover', dragOver);
+  event.target.removeEventListener('dragenter', dragEnter);
+  event.target.removeEventListener('dragleave', dragLeave);
+  event.target.removeEventListener('drop', dragDrop);
   if (whichPlayer === 'Player1') {
     draggedItem.classList.replace('player1', 'played1');
     draggedItem.draggable = false;
@@ -104,7 +109,7 @@ function dragDrop() {
     checkIfWon();
   }
   getPlayableTokens();
-  changePlayer(); 
+  allowPlayer(); 
 }
 
 function checkIfWon() {
@@ -132,6 +137,10 @@ function checkIfWon() {
         player2Turns = [];
       }
     })
+    if (player1Turns.length + player2Turns.length  === 9) {
+      winnerText.textContent = `It's a Draw!`
+    }
+
 }
     
 // function playersTurn(event) {

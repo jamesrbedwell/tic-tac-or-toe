@@ -409,7 +409,7 @@ function playerVsComp() {
       whosTurn.textContent = `${player1Name}'s Turn!`;
     } else {
       whosTurn.textContent = `${player2Name}'s Turn!`;
-      compTurn();
+      setTimeout(compTurn, 2000);
     }
   }
 
@@ -468,47 +468,50 @@ function playerVsComp() {
     if (whosGo === 'Player1') {
       draggedItem.classList.replace('tictac-token', 'tictac-played');
       draggedItem.draggable = false;
+      draggedItem.classList.remove('p1-token');
+      p1Tokens = document.querySelectorAll('.p1-token');
       player1Turns.push(parseInt(event.target.id));
       let turnIndex = gameboard.indexOf(parseInt(event.target.id));
-      gameboard.splice(turnIndex, 1);
-      updateTurn();
+      gameboard.splice(turnIndex, 1);   
     }
     if (player1Turns.length >= 3 || player2Turns.length >= 3) {
       checkIfWon();
     }
+    updateTurn();
     allowPlayerTurn();
   }
 
   function checkIfWon() {
     //loop through player choices and see if they are all within one of the winning combos
-    winningCombos.forEach(combo => {
-      player1Counter = 0;
-      player2Counter = 0;
-      player1Turns.forEach(turn => {
-        if(combo.includes(turn)){
-          player1Counter++
-        }
-      })
-      player2Turns.forEach(turn => {
-        if(combo.includes(turn)) {
-          player2Counter++
-        }
-      })
-      if (player1Counter === 3) {
-        winnerText.textContent = `${player1Name} Wins`;
-        // player1Turns = [];
-        // player2Turns = [];
-        winnerPopup();
-      } else  if (player2Counter === 3) {
-        winnerText.textContent = `${player2Name} Wins`;
-        winnerPopup();
-        // player1Turns = [];
-        // player2Turns = [];
-      }
-    })
     if (player1Turns.length + player2Turns.length  === 9) {
       winnerText.textContent = `It's a Draw!`
-      winnerPopup()
+      winnerPopup();
+    } else {
+      winningCombos.forEach(combo => {
+        player1Counter = 0;
+        player2Counter = 0;
+        player1Turns.forEach(turn => {
+          if(combo.includes(turn)){
+            player1Counter++
+          }
+        })
+        player2Turns.forEach(turn => {
+          if(combo.includes(turn)) {
+            player2Counter++
+          }
+        })
+        if (player1Counter === 3) {
+          winnerText.textContent = `${player1Name} Wins`;
+          player1Turns = [];
+          player2Turns = [];
+          winnerPopup();
+        } else  if (player2Counter === 3) {
+          winnerText.textContent = `${player2Name} Wins`;
+          winnerPopup();
+          player1Turns = [];
+          player2Turns = [];
+        }
+      })
     }
   }
 
@@ -524,6 +527,7 @@ function playerVsComp() {
     p1Tokens = document.querySelectorAll('.p1-token');
     p2Tokens = document.querySelectorAll('.p2-token');
     setEventListeners();
+    updateTurn();
     allowPlayerTurn();
   }
 

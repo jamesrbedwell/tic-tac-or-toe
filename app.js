@@ -140,7 +140,6 @@ function checkIfWon() {
     if (player1Turns.length + player2Turns.length  === 9) {
       winnerText.textContent = `It's a Draw!`
     }
-
 }
     
 // function playersTurn(event) {

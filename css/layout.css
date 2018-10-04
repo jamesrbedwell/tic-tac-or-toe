@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   overflow: scroll;
@@ -14,14 +18,6 @@ body {
   text-transform: uppercase;
 }
 
-#1, #2, #4, #5, #7, #9 {
-  border-right: 4px solid yellow;
-}
-
-#1, #2, #3, #4, #5, #6 {
-  border-bottom: 4px solid yellow;
-}
-
 /* -------PAGE 1-------- */
 .page1 {
   width: 100%;
@@ -32,24 +28,25 @@ body {
 
 .logo {
   width: 70%;
-  margin-top: 2%;
+  margin-top: 4%;
 }
 
 .page1 p {
   margin-top: 0;
   margin-bottom: 40px;
+  font-size: 1.25rem;
 }
 
 .name-input {
   border-radius: 10px;
   border: 3px dashed rgb(61, 105, 247);
   background-color: #fca754;
-  font-size: 1rem;
+  font-size: 1.75rem;
   color: rgb(255, 47, 175);
   padding: 5px;
   font-family: 'Share Tech Mono', monospace;
-  width: 150px
-  
+  width: 200px;
+  text-align: center;
 }
 
 .name-input::placeholder {
@@ -73,6 +70,7 @@ form button {
   border-radius: 5px;
   height: 30px;
   transition: all ease-in-out 0.3s;
+  margin-right: 10px
 }
 
 form button:hover {
@@ -86,17 +84,31 @@ form button:focus {
 }
 
 /* ------- PAGE 2 -------- */
+.arrow {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.425));
+}
+
+.back-btn {
+  margin-top: 10px;
+}
+
+.play-btn {
+  margin-bottom: 10px;
+}
 
 .page2 {
   width: 100%;
   height: 100vh;
   background-color: rgb(0, 157, 255);
+  justify-content: space-between;
 }
 
 .page2 .container {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 25%;
   width: 100%;
 }
 
@@ -116,10 +128,19 @@ form button:focus {
 .tokens img {
   width: 50%;
   height: 100px;
+  cursor: pointer;
+}
+
+.chosen {
+  border: 4px dashed yellow;
 }
 
 
 /* ------- PAGE 3 -------- */
+
+.back-token-btn {
+  margin-top: 10px;
+}
 
 .page3 {
   width: 100%;
@@ -127,7 +148,7 @@ form button:focus {
   background-color: rgb(170, 3, 192);
 }
 
-.page3 .container {
+.page3 .game-container {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -234,4 +255,66 @@ form button:focus {
 
 .invisible {
   visibility: hidden;
+}
+
+.winner-popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+  background-color: #fb7600; 
+  margin: 25vh auto;
+  width: 50%;
+  height: 50vh;
+  border: 5px solid orange;
+  font-family: 'Bungee Shade', cursive;
+  font-size: 3rem;
+  color: blue;
+  text-align: center;
+  overflow: auto;
+}
+
+.popup-content button {
+  cursor: pointer;
+  border: 4px solid blue;
+  box-shadow: 4px 4px darkblue;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-family: 'Share Tech Mono', monospace;
+  transition: all ease-in-out 0.3s
+}
+
+.popup-content button:hover {
+  border: 4px solid yellow;
+  box-shadow: 4px 4px darkgoldenrod;
+  transition: all ease-in-out 0.3s
+}
+
+/* .popup-content span {
+  cursor: pointer;
+  float: right;
+  margin-right: 10px;
+  color: red;
+  transition: all ease-in-out 0.3s
+}
+
+.popup-content span:hover {
+  float: right;
+  margin-right: 10px;
+  color: darkred;
+  transition: all ease-in-out 0.3s
+} */
+
+
+.popup-content h1 {
+  margin-top: 15%;
+  margin-bottom: 5%;
 }

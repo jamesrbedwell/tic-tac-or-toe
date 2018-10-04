@@ -30,23 +30,23 @@
 
 - [x] If the element is dropped in a cell it adds to the players play list.
 
-- [ ] Styles 
-    - [ ] the dragable elements with tic-tacs or toes.
-    - [ ] headings etc.
-    - [ ] inputs for player names
+- [x] Styles 
+    - [x] the dragable elements with tic-tacs or toes.
+    - [x] headings etc.
+    - [x] inputs for player names
 
 #STYLES BROKEN DOWN
 
-- [ ] Create 3 100% divs, with buttons that link back and forward with a transition.
+- [x] Create 3 100% divs, with buttons that link back and forward with a transition. **Maybe not back and forward**
 
 #EXTRA HTML/JS
 
-- [ ] Input for players to put in their names
-- [ ] Option to choose their tokens
-- [ ] Grid where they can drag their tokens over to the board 
-- [ ] Once square dropped in, no longer droppable!
+- [x] Input for players to put in their names
+- [x] Option to choose their tokens
+- [x] Grid where they can drag their tokens over to the board 
+- [x] Once square dropped in, no longer droppable!
 
 
-- [ ] Create an option to allow players to insert usernames.
+- [x] Create an option to allow players to insert usernames.
 
 - [ ] Upload to github pages

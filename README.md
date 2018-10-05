@@ -1,4 +1,47 @@
-#To Do List
+#TicTacs or Toes - An alternative to naughts and crosses.
+----
+
+[PLAY HERE!](http://jamesrbedwell.github.io/tic-tac-or-toe)
+
+## INSTRUCTIONS
+
+1. Enter your name, or names if you are playing two player. Then click the relevant button.
+2. Each player needs to select a token. Then press PLAY at the bottom of the screen.
+... If you are playing solo the computer token will choose automatically.
+3. It's game time, when it is your turn click and drag your token to your prefered play area.
+4. Keep going until you win/lose/draw.
+5. Play again because you enjoyed it so much!
+
+----
+
+##MADE WITH
+* HTML
+* CSS
+* JAVASCRIPT
+
+##THOUGHT PROCESS
+Make a game thats pretty straight forward a bit more interesting! Try not to follow the standard approch of clicking to show where a player has taken a turn by introducing more interactivity. In this version players are able to drag their 'tokens' to where they want to play.
+Add a gimic of playing with tictacs or a toe.
+
+##WOULD I DO ANYTHING DIFFERENTLY
+I would have incorporated the game logic and computer player logic to begin with.  I created them seperately then had to try and combine afterwards.
+
+The drag and drop feature was a lot of work, once trying to replay. There was a lot of adding and removing of event listeners.
+
+I'd like to think I could write less code, however at the time of creating it is used the tools that I knew and had available.
+
+I'm pretty sure there are a few little bugs here and there, but finding them is difficult.
+
+I would like to include more validation. A review by a UX designer would really help!.
+
+##WILL I ADD NEW FEATURES
+I started looking at having a local leader board.  Which would be good to see, however a global leader board would be much more useful, so I've left that idea for the time being.
+
+I had plans to have a foot that you could pull the toes off and also a tictac container you could shake to get the counters out. Both of which are probably a bit out of my depth of knowledge at the moment. I will play around with this idea.
+
+
+
+### To Do List
 - [x] Create files/folders
     - [x] Create boiler plate, and check all work.
 
@@ -6,7 +49,7 @@
     - [x] within its own gameboard container
     - [x] 3x3 Grid - 9 square DIVS (could be media queried)
     - [x] Border Styling
-    - [ ] CSS - not first/last **TBC**
+    - [x] CSS - not first/last
     - [x] Display: Grid?
     - [x] Each cell has an ID and a class of cell for styling.
 
@@ -22,7 +65,7 @@
     - [x] loop through the winning options each time the player plays.
     - [x] check to see if they match.
     - [x] if they match display the winner.
-    - [ ] add to a win count for each player
+    - [x] add to a win count for each player
 
 - [x] Make the gameboard cells to receive dropped elements.
 
@@ -46,7 +89,6 @@
 - [x] Grid where they can drag their tokens over to the board 
 - [x] Once square dropped in, no longer droppable!
 
-
 - [x] Create an option to allow players to insert usernames.
 
-- [ ] Upload to github pages
+- [x] Upload to github pages

@@ -24,6 +24,15 @@ const backBtn = document.querySelector('.back-btn');
 const playBtn = document.querySelector('.play-btn');
 const backChoiceBtn = document.querySelector('.back-choice-btn');
 
+//LEADERBOARD SELECTORS
+const leaderNames = document.querySelector('.leader-names');
+const leaderScores = document.querySelector('.leader-scores');
+
+// let leaderNameArray = Object.keys(localStorage);
+// let leaderScoresArray = Object.values(localStorage);
+// leaderNames.textContent = leaderNameArray.join(' ');
+// leaderScores.textContent = leaderScoresArray.join(' ');
+
 //OTHER SELECTORS
 const winnerText = document.querySelector('.the-winner');
 
@@ -40,8 +49,8 @@ const replayBtn = document.querySelector('.replay-btn');
 const finishBtn = document.querySelector('.finish-btn').addEventListener('click', function(){
   window.location.reload();
   window.scrollTo(0,0);
-  localStorage.setItem(`${player1Name}`, `${p1Wins}`);
-  localStorage.setItem(`${player2Name}`, `${p2Wins}`);
+  // localStorage.setItem(`${player1Name}`, `${p1Wins}`);
+  // localStorage.setItem(`${player2Name}`, `${p2Wins}`);
 });
 
 // SET STANDARD EVENT LISTENERS

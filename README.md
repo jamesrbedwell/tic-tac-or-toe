@@ -1,4 +1,4 @@
-#TicTacs or Toes - An alternative to naughts and crosses.
+# TicTacs or Toes - An alternative to naughts and crosses.
 ----
 
 [PLAY HERE!](http://jamesrbedwell.github.io/tic-tac-or-toe)
@@ -14,16 +14,16 @@
 
 ----
 
-##MADE WITH
+## MADE WITH
 * HTML
 * CSS
 * JAVASCRIPT
 
-##THOUGHT PROCESS
+## THOUGHT PROCESS
 Make a game thats pretty straight forward a bit more interesting! Try not to follow the standard approch of clicking to show where a player has taken a turn by introducing more interactivity. In this version players are able to drag their 'tokens' to where they want to play.
 Add a gimic of playing with tictacs or a toe.
 
-##WOULD I DO ANYTHING DIFFERENTLY
+## WOULD I DO ANYTHING DIFFERENTLY
 I would have incorporated the game logic and computer player logic to begin with.  I created them seperately then had to try and combine afterwards.
 
 The drag and drop feature was a lot of work, once trying to replay. There was a lot of adding and removing of event listeners.
@@ -34,7 +34,7 @@ I'm pretty sure there are a few little bugs here and there, but finding them is 
 
 I would like to include more validation. A review by a UX designer would really help!.
 
-##WILL I ADD NEW FEATURES
+## WILL I ADD NEW FEATURES
 I started looking at having a local leader board.  Which would be good to see, however a global leader board would be much more useful, so I've left that idea for the time being.
 
 I had plans to have a foot that you could pull the toes off and also a tictac container you could shake to get the counters out. Both of which are probably a bit out of my depth of knowledge at the moment. I will play around with this idea.
@@ -78,11 +78,11 @@ I had plans to have a foot that you could pull the toes off and also a tictac co
     - [x] headings etc.
     - [x] inputs for player names
 
-#STYLES BROKEN DOWN
+# STYLES BROKEN DOWN
 
 - [x] Create 3 100% divs, with buttons that link back and forward with a transition. **Maybe not back and forward**
 
-#EXTRA HTML/JS
+# EXTRA HTML/JS
 
 - [x] Input for players to put in their names
 - [x] Option to choose their tokens

@@ -123,6 +123,8 @@ let choicesmade = 0;
 let p1Wins = 0;
 let p2Wins = 0;
 
+let won = false;
+
 function startGame(event) {
   event.preventDefault();
   event.target.classList.contains('play-solo-btn') ? playingSolo = true : playingSolo = false;
@@ -351,18 +353,19 @@ function dragDrop(event) {
       let turnIndex = playBoard.indexOf(parseInt(event.target.id));
       playBoard.splice(turnIndex, 1);   
     }
-    updateTurn();
   } else if (whosGo === 'Player2' && !playingSolo) {
     draggedItem.classList.replace(`${player2TokenChoice}-token`, `${player2TokenChoice}-played`);
     draggedItem.classList.remove('p1-token');
     draggedItem.draggable = false;
-    player2Turns.push(parseInt(event.target.id));
-    updateTurn();
+    player2Turns.push(parseInt(event.target.id));  
   }
   if (player1Turns.length >= 3 || player2Turns.length >= 3) {
     checkIfWon();
   }
-  allowTurn();
+  if (!won) {
+    updateTurn();
+    allowTurn();
+  }
 }
 
 function updateTurn() {
@@ -394,9 +397,11 @@ function checkIfWon() {
     if (player1Counter === 3) {
       winnerText.textContent = `${player1Name} Wins`;
       p1Wins++
+      won = true;
       winnerPopup();
     } else  if (player2Counter === 3) {
       winnerText.textContent = `${player2Name} Wins`;
+      won = true;
       p2Wins++
       winnerPopup();      
     } else if (player1Turns.length + player2Turns.length  === 9) {

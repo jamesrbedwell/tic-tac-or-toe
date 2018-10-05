@@ -13,6 +13,7 @@ const whosTurn = document.querySelector('.whos-turn');
 //TOKEN CHOICE SELECTORS
 const p1Choices = document.querySelectorAll('.p1-choice');
 const p2Choices = document.querySelectorAll('.p2-choice');
+const chooseAgainBtns = document.querySelectorAll('.choose-again-btn');
 
 //SELECTED TOKEN SELECTORS
 let p1Tokens = document.querySelectorAll('.p1-token');
@@ -30,12 +31,17 @@ const gameContainer = document.querySelector('.game-container');
 
 let cells = document.querySelectorAll('.cell');
 
+let p1WinsText = document.querySelector('.p1wins');
+let p2WinsText = document.querySelector('.p2wins');
+
 const popup = document.querySelector('.winner-popup');
 const popupClose = document.querySelector('.close');
 const replayBtn = document.querySelector('.replay-btn');
 const finishBtn = document.querySelector('.finish-btn').addEventListener('click', function(){
   window.location.reload();
   window.scrollTo(0,0);
+  localStorage.setItem(`${player1Name}`, `${p1Wins}`);
+  localStorage.setItem(`${player2Name}`, `${p2Wins}`);
 });
 
 // SET STANDARD EVENT LISTENERS
@@ -44,6 +50,7 @@ playSoloBtn.addEventListener('click', startGame);
 backBtn.addEventListener('click', back);
 playBtn.addEventListener('click', play);
 backChoiceBtn.addEventListener('click', backToChoices);
+chooseAgainBtns.forEach(btn => btn.addEventListener('click', chooseAgain));
 
 // SET STANDARD FUNCTIONS
 function back() {
@@ -104,6 +111,9 @@ let playBoard = [1,2,3,4,5,6,7,8,9];
 let cellsArray = [1,2,3,4,5,6,7,8,9];
 let choicesmade = 0;
 
+let p1Wins = 0;
+let p2Wins = 0;
+
 function startGame(event) {
   event.preventDefault();
   event.target.classList.contains('play-solo-btn') ? playingSolo = true : playingSolo = false;
@@ -127,15 +137,11 @@ function startGame(event) {
   }
 }
 
-function tokenHover(event) {
-  event.target.classList.toggle('token-hover');
-}
-
 function continueGame() {
   p1Choices.forEach(choice => {
     choice.addEventListener('click', tokenChoice);
-    choice.addEventListener('mouseover', tokenHover);
-    choice.addEventListener('mouseleave', tokenHover); 
+    choice.addEventListener('mouseover', event.target.classList.add('token-hover'));
+    choice.addEventListener('mouseleave', event.target.classList.remove('token-hover')); 
     choice.style.cursor = 'pointer';  
   });
 
@@ -143,8 +149,8 @@ function continueGame() {
     //add event listeners for player1's token choice
     p2Choices.forEach(choice => {
       choice.addEventListener('click', tokenChoice);
-      choice.addEventListener('mouseover', tokenHover);
-      choice.addEventListener('mouseleave', tokenHover); 
+      choice.addEventListener('mouseover', event.target.classList.add('token-hover'));
+      choice.addEventListener('mouseleave', event.target.classList.remove('token-hover')); 
       choice.style.cursor = 'pointer';  
     });
   }
@@ -165,14 +171,15 @@ function tokenChoice(event) {
     choicesmade++
     p1Choices.forEach(choice => {
       choice.removeEventListener('click', tokenChoice);
-      choice.removeEventListener('mouseover', tokenHover);
-      choice.removeEventListener('mouseleave', tokenHover);
+      choice.removeEventListener('mouseover', event.target.classList.add('token-hover'));
+      choice.removeEventListener('mouseleave', event.target.classList.remove('token-hover'));
       choice.style.cursor = 'auto'; 
     });
     p1Tokens.forEach(token => {
       token.src = event.target.src;
       token.classList.add(`${player1TokenChoice}-token`);
     });
+    chooseAgainBtns.forEach(btn => btn.addEventListener('click', chooseAgain));
   }
   if (event.target.classList.contains('p2-choice')) {  // player 2
     if (event.target.classList.contains('tictac')) {
@@ -185,14 +192,15 @@ function tokenChoice(event) {
     choicesmade++
     p2Choices.forEach(choice => {
       choice.removeEventListener('click', tokenChoice);
-      choice.removeEventListener('mouseover', tokenHover);
-      choice.removeEventListener('mouseleave', tokenHover);
+      choice.removeEventListener('mouseover', event.target.classList.add('token-hover'));
+      choice.removeEventListener('mouseleave', event.target.classList.remove('token-hover'));
       choice.style.cursor = 'auto'; 
     });
     p2Tokens.forEach(token => {
       token.src = event.target.src;
       token.classList.add(`${player2TokenChoice}-token`);
     });
+    chooseAgainBtns.forEach(btn => btn.addEventListener('click', chooseAgain));
   }
   if (!playingSolo && choicesmade === 2) {
     playBtn.classList.add('play-animation');
@@ -211,6 +219,50 @@ function tokenChoice(event) {
         token.classList.add(`${player2TokenChoice}-token`);
       })
     }
+  }
+}
+
+function chooseAgain(event) {
+  if (event.target.classList.contains('p1ca')) {
+    player1TokenChoice = '';
+    choicesmade--;
+    p1Choices.forEach(choice => {
+      choice.addEventListener('click', tokenChoice);
+      choice.addEventListener('mouseover', event.target.classList.add('token-hover'));
+      choice.addEventListener('mouseleave', event.target.classList.remove('token-hover')); 
+      choice.style.cursor = 'pointer';
+      if (choice.classList.contains('chosen')) {
+        choice.classList.remove('chosen');
+      }
+      p1Tokens.forEach(token => {
+        token.src = '';
+        if (token.classList.contains('toe-token')) {
+          token.classList.remove('toe-token');
+        } else if (token.classList.contains('tictac-token')) {
+          token.classList.remove('tictac-token');
+        }
+      });  
+    })
+  } else if (event.target.classList.contains('p2ca')) {
+    player2TokenChoice = '';
+    choicesmade--;
+    p2Choices.forEach(choice => {
+      choice.addEventListener('click', tokenChoice);
+      choice.addEventListener('mouseover', event.target.classList.add('token-hover'));
+      choice.addEventListener('mouseleave', event.target.classList.remove('token-hover')); 
+      choice.style.cursor = 'pointer';
+      if (choice.classList.contains('chosen')) {
+        choice.classList.remove('chosen');
+      }
+      p2Tokens.forEach(token => {
+        token.src = '';
+        if (token.classList.contains('toe-token')) {
+          token.classList.remove('toe-token');
+        } else if (token.classList.contains('tictac-token')) {
+          token.classList.remove('tictac-token');
+        }
+      });    
+    })
   }
 }
 
@@ -332,9 +384,11 @@ function checkIfWon() {
     })
     if (player1Counter === 3) {
       winnerText.textContent = `${player1Name} Wins`;
+      p1Wins++
       winnerPopup();
     } else  if (player2Counter === 3) {
       winnerText.textContent = `${player2Name} Wins`;
+      p2Wins++
       winnerPopup();      
     } else if (player1Turns.length + player2Turns.length  === 9) {
       winnerText.textContent = `It's a Draw!`
@@ -344,6 +398,8 @@ function checkIfWon() {
 }
 
 function winnerPopup() {
+  p1WinsText.textContent = `Wins: ${p1Wins}`;
+  p2WinsText.textContent = `Wins: ${p2Wins}`;
   popup.style.display = 'block';
   replayBtn.addEventListener('click', replay);
 }
@@ -359,8 +415,12 @@ function replay() {
   cells = document.querySelectorAll('.cell');
   p1Tokens = document.querySelectorAll('.p1-token');
   p2Tokens = document.querySelectorAll('.p2-token');
+  p1WinsText = document.querySelector('.p1wins');
+  p2WinsText = document.querySelector('.p2wins');
   setEventListenersForGame();
   allowTurn();
+  p1WinsText.textContent = `Wins: ${p1Wins}`;
+  p2WinsText.textContent = `Wins: ${p2Wins}`;
 }
 
 function compTurn() {

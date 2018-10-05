@@ -158,6 +158,19 @@ form button:focus {
   font-size: 1.3rem;
 }
 
+.choose-again-btn {
+  font-size: 1rem;
+  cursor: pointer;
+  color: rgb(198, 0, 216);
+  text-shadow: 1px 1px black;
+  transition: all ease-in-out 0.3s;
+}
+
+.choose-again-btn:hover {
+  color: rgb(126, 1, 1);
+  transition: all ease-in-out 0.3s;
+}
+
 .tokens {
   display: flex;
 }

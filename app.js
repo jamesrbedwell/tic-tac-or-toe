@@ -1,23 +1,29 @@
 //PAGE 1 SELECTORS
-const letsPlayBtn = document.querySelector('.lets-go-btn');
 const playSoloBtn = document.querySelector('.play-solo-btn');
+const letsPlayBtn = document.querySelector('.lets-play-btn');
+const errorMessage = document.querySelector('.error-message');
 
-const player1NameElements = document.querySelectorAll('.p1name');
-const player2NameElements = document.querySelectorAll('.p2name');
-//PAGE 2 SELECTORS
-const p1ChoiceTic = document.querySelector('.p1choice-tic');
-const p1ChoiceToe = document.querySelector('.p1choice-toe');
-const p2ChoiceTic = document.querySelector('.p2choice-tic');
-const p2ChoiceToe = document.querySelector('.p2choice-toe');
+//NAME SELECTORS
+const p1NameElems = document.querySelectorAll('.p1name');
+const p2NameElems = document.querySelectorAll('.p2name');
 
-const backBtn = document.querySelector('.back-btn');
-const playBtn = document.querySelector('.play-btn');
-const backTokenBtn = document.querySelector('.back-token-btn');
+//TURN SELECTOR
+const whosTurn = document.querySelector('.whos-turn');
 
+//TOKEN CHOICE SELECTORS
+const p1Choices = document.querySelectorAll('.p1-choice');
+const p2Choices = document.querySelectorAll('.p2-choice');
+
+//SELECTED TOKEN SELECTORS
 let p1Tokens = document.querySelectorAll('.p1-token');
 let p2Tokens = document.querySelectorAll('.p2-token');
 
-const whosTurn = document.querySelector('.whos-turn');
+//BUTTON SELECTORS
+const backBtn = document.querySelector('.back-btn');
+const playBtn = document.querySelector('.play-btn');
+const backChoiceBtn = document.querySelector('.back-choice-btn');
+
+//OTHER SELECTORS
 const winnerText = document.querySelector('.the-winner');
 
 const gameContainer = document.querySelector('.game-container');
@@ -32,8 +38,40 @@ const finishBtn = document.querySelector('.finish-btn').addEventListener('click'
   window.scrollTo(0,0);
 });
 
+// SET STANDARD EVENT LISTENERS
+letsPlayBtn.addEventListener('click', startGame);
+playSoloBtn.addEventListener('click', startGame);
+backBtn.addEventListener('click', back);
+playBtn.addEventListener('click', play);
+backChoiceBtn.addEventListener('click', backToChoices);
 
-//GLOBAL VARIABLES
+// SET STANDARD FUNCTIONS
+function back() {
+  document.querySelector('.page1').scrollIntoView({behavior: 'smooth'});
+  player1TokenChoice = '';
+  player2TokenChoice = '';
+  p2Choices.forEach(choice => chice)
+}
+
+function play() {
+  if (player1TokenChoice === 'tic' && player2TokenChoice === 'tic') {
+    p2Tokens.forEach(p2tok => {
+      p2tok.src = 'images/tictacalt.svg';
+    })
+  } else if (player1TokenChoice === 'toe' && player2TokenChoice === 'toe') {
+    p2Tokens.forEach(p2tok => {
+      p2tok.src = 'images/toealt.svg';
+    })
+  }
+  document.querySelector('.page3').scrollIntoView({behavior: 'smooth'});
+  gameContainerHTML = gameContainer.innerHTML;
+}
+
+function backToChoices() {
+  document.querySelector('.page2').scrollIntoView({behavior: 'smooth'});
+}
+
+// SET VARIABLES
 const winningCombos = [
   [1,2,3],
   [4,5,6],
@@ -45,505 +83,296 @@ const winningCombos = [
   [3,5,7]
 ]
 
-
-let player1Name = '';
-let player2Name = '';
-
+let playingSolo = false;
 let whosGo = 'Player1';
+let player1Name;
+let player2Name;
+
+let player1TokenChoice;
+let player2TokenChoice;
+
+let player1Token;
+let player2Token;
 
 let player1Turns = [];
 let player2Turns = [];
-let cellsArray = [1,2,3,4,5,6,7,8,9];
-let gameBoard = [];
-
-let player1Choice;
-let player2Choice;
 
 let draggedItem;
-
 let gameContainerHTML;
 
-//PAGE 1 BUTTON LISTENER AND FUNCTIONS
-letsPlayBtn.addEventListener('click', letsPlay);
-playSoloBtn.addEventListener('click', playSolo);
-backBtn.addEventListener('click', back);
-playBtn.addEventListener('click', play);
-backTokenBtn.addEventListener('click', backToTokens);
+let playBoard = [1,2,3,4,5,6,7,8,9];
+let cellsArray = [1,2,3,4,5,6,7,8,9];
+let choicesmade = 0;
 
-function back() {
-  document.querySelector('.page1').scrollIntoView({behavior: 'smooth'});
-}
-
-function play() {
-  if (player1Choice === 'tic' && player2Choice === 'tic') {
-    p2Tokens.forEach(p2toke => {
-      p2toke.src = 'images/tictacalt.svg';
-    })
-  } else if (player1Choice === 'toe' && player2Choice === 'toe') {
-    p2Tokens.forEach(p2tke => {
-      p2tke.src = 'images/toealt.svg';
-    })
-  }
-  document.querySelector('.page3').scrollIntoView({behavior: 'smooth'});
-  gameContainerHTML = gameContainer.innerHTML;
-}
-
-function backToTokens() {
-  document.querySelector('.page2').scrollIntoView({behavior: 'smooth'});
-}
-
-function letsPlay(event) {
+function startGame(event) {
   event.preventDefault();
-  player1Name = document.querySelector('.player1-name').value;
-  player2Name = document.querySelector('.player2-name').value;
-  player1NameElements.forEach(name => name.textContent = player1Name);
-  player2NameElements.forEach(name => name.textContent = player2Name);
-  whosTurn.textContent = `${player1Name}'s Turn!`;
-  document.querySelector('.page2').scrollIntoView({behavior: 'smooth'});
-  playerVsPlayer();
+  event.target.classList.contains('play-solo-btn') ? playingSolo = true : playingSolo = false;
+  if (playingSolo) {
+    player1Name = document.querySelector('.player1-name').value;
+    player2Name = `Han Solo`; 
+  } else if (!playingSolo) {
+    player1Name = document.querySelector('.player1-name').value;
+    player2Name = document.querySelector('.player2-name').value;
+  }
+  if (!player1Name || !player2Name) {
+    errorMessage.textContent = 'Please enter your name!!!'
+  } else {
+    p1NameElems.forEach(e => e.textContent = player1Name); // Place Names on layout
+    p2NameElems.forEach(e => e.textContent = player2Name); // Place Names on layout
+    //go to next page and set title of whos turn
+    whosTurn.textContent = `${player1Name}'s Turn!`;
+    document.querySelector('.page2').scrollIntoView({behavior: 'smooth'});
+
+    continueGame();
+  }
 }
 
-function playSolo(event) {
-  event.preventDefault();
-  player1Name = document.querySelector('.player1-name').value;
-  player2Name = 'Han Solo';
-  player1NameElements.forEach(name => name.textContent = player1Name);
-  player2NameElements.forEach(name => name.textContent = player2Name);
-  whosTurn.textContent = `${player1Name}'s Turn!`;
-  document.querySelector('.page2').scrollIntoView({behavior: 'smooth'});
-  playerVsComp();
+function tokenHover(event) {
+  event.target.classList.toggle('token-hover');
 }
 
-function playerVsPlayer() {
-  //PAGE 2 LISTENERS AND FUNCTIONS
-  p1ChoiceTic.addEventListener('click', p1Tic);
-  p1ChoiceToe.addEventListener('click', p1Toe);
-  p2ChoiceTic.addEventListener('click', p2Tic);
-  p2ChoiceToe.addEventListener('click', p2Toe);
+function continueGame() {
+  p1Choices.forEach(choice => {
+    choice.addEventListener('click', tokenChoice);
+    choice.addEventListener('mouseover', tokenHover);
+    choice.addEventListener('mouseleave', tokenHover); 
+    choice.style.cursor = 'pointer';  
+  });
 
-  function p1Tic(e) {
-    if (!player1Choice) {
-      player1Choice = 'tic';
-      p1ChoiceTic.classList.add('chosen');
-    } else if (player1Choice === 'toe') {
-      player1Choice = 'tic';
-      p1ChoiceToe.classList.remove('chosen');
-      p1ChoiceTic.classList.add('chosen');
+  if (!playingSolo) {
+    //add event listeners for player1's token choice
+    p2Choices.forEach(choice => {
+      choice.addEventListener('click', tokenChoice);
+      choice.addEventListener('mouseover', tokenHover);
+      choice.addEventListener('mouseleave', tokenHover); 
+      choice.style.cursor = 'pointer';  
+    });
+  }
+}
+
+function tokenChoice(event) {
+  //player 1
+  event.target.addEventListener('mouseover', function(event){
+  })
+  if (event.target.classList.contains('p1-choice')) {
+    if (event.target.classList.contains('tictac')) {
+      player1TokenChoice = 'tictac';
+      event.target.classList.add('chosen');
+    } else if (event.target.classList.contains('toe')) {
+      player1TokenChoice = 'toe';
+      event.target.classList.add('chosen');
     }
-    p1Tokens.forEach(p1t => {
-      p1t.src = e.target.src;
-      p1t.classList.add('tictac-token');
-      if (p1t.classList.contains('toe-token')) {
-        p1t.classList.remove('toe-token');
-      }
-    })
+    choicesmade++
+    p1Choices.forEach(choice => {
+      choice.removeEventListener('click', tokenChoice);
+      choice.removeEventListener('mouseover', tokenHover);
+      choice.removeEventListener('mouseleave', tokenHover);
+      choice.style.cursor = 'auto'; 
+    });
+    p1Tokens.forEach(token => {
+      token.src = event.target.src;
+      token.classList.add(`${player1TokenChoice}-token`);
+    });
   }
-  function p1Toe(e) {
-    if (!player1Choice) {
-      player1Choice = 'toe';
-      p1ChoiceToe.classList.add('chosen');
-    } else if (player1Choice === 'tic') {
-      player1Choice = 'toe';
-      p1ChoiceTic.classList.remove('chosen');
-      p1ChoiceToe.classList.add('chosen');
+  if (event.target.classList.contains('p2-choice')) {  // player 2
+    if (event.target.classList.contains('tictac')) {
+      player2TokenChoice = 'tictac';
+      event.target.classList.add('chosen');
+    } else if (event.target.classList.contains('toe')) {
+      player2TokenChoice = 'toe';
+      event.target.classList.add('chosen');
     }
-    p1Tokens.forEach(p1tk => {
-      p1tk.src = e.target.src;
-      p1tk.classList.add('toe-token');
-      if (p1tk.classList.contains('tictac-token')) {
-        p1tk.classList.remove('tictac-token');
-      }
-    })
+    choicesmade++
+    p2Choices.forEach(choice => {
+      choice.removeEventListener('click', tokenChoice);
+      choice.removeEventListener('mouseover', tokenHover);
+      choice.removeEventListener('mouseleave', tokenHover);
+      choice.style.cursor = 'auto'; 
+    });
+    p2Tokens.forEach(token => {
+      token.src = event.target.src;
+      token.classList.add(`${player2TokenChoice}-token`);
+    });
   }
-  function p2Tic(e) {
-    if (!player2Choice) {
-      player2Choice = 'tic';
-      p2ChoiceTic.classList.add('chosen');
-    } else if (player2Choice === 'toe') {
-      player2Choice = 'tic';
-      p2ChoiceToe.classList.remove('chosen');
-      p2ChoiceTic.classList.add('chosen');
-    }
-    p2Tokens.forEach(p2t => {
-      p2t.src = e.target.src;
-      p2t.classList.add('tictac-token');
-      if (p2t.classList.contains('toe-token')) {
-        p2t.classList.remove('toe-token');
-      }
-    })
-  }
-  function p2Toe(e) {
-    if (!player2Choice) {
-      player2Choice = 'toe';
-      p2ChoiceToe.classList.add('chosen');
-    } else if (player2Choice === 'tic') {
-      player2Choice = 'toe';
-      p2ChoiceTic.classList.remove('chosen');
-      p2ChoiceToe.classList.add('chosen');
-    }
-    p2Tokens.forEach(p2tk => {
-      p2tk.src = e.target.src;
-      p2tk.classList.add('toe-token');
-      if (p2tk.classList.contains('tictac-token')) {
-        p2tk.classList.remove('tictac-token');
-      }
-    })
-  }
-
-  //PAGE 3 LISTENERS AND FUNCTIONS
-
-  function allowPlayerTurn() {
-    p1Tokens = document.querySelectorAll('.p1-token');
-    p2Tokens = document.querySelectorAll('.p2-token');
-    if (whosGo === 'Player1') {
-      p1Tokens.forEach(p1tok => p1tok.draggable = true);
-      p2Tokens.forEach(p2tok => p2tok.draggable = false);
-    } else if (whosGo === 'Player2') {
-      p2Tokens.forEach(p2toke => p2toke.draggable = true);
-      p1Tokens.forEach(p1toke => p1toke.draggable = false);
-    }
-  }
-  allowPlayerTurn();
-
-  function updateTurn() {
-    whosGo === 'Player1' ? whosGo = 'Player2' : whosGo = 'Player1';
-    if (whosGo === 'Player1') {
-      whosTurn.textContent = `${player1Name}'s Turn!`;
-    } else {
-      whosTurn.textContent = `${player2Name}'s Turn!`;
-    }
-  }
-
-  function setEventListeners() {
-    p1Tokens.forEach(tictac => {
-      tictac.addEventListener('dragstart', dragStart);
-      tictac.addEventListener('dragend', dragEnd);
-    })
-    
-    p2Tokens.forEach(toe => {
-      toe.addEventListener('dragstart', dragStart);
-      toe.addEventListener('dragend', dragEnd);
-    })
-    
-    cells.forEach(cell => {
-      cell.addEventListener('dragover', dragOver);
-      cell.addEventListener('dragenter', dragEnter);
-      cell.addEventListener('dragleave', dragLeave);
-      cell.addEventListener('drop', dragDrop);
-    })
-  }
-  setEventListeners()
-
-  // Drag Functions
-  function dragStart(event) {
-    event.target.classList.add('drag-token');
-    setTimeout(() => (event.target.classList.add('invisible')),0);
-    draggedItem = event.target;
-  }
-
-  function dragEnd(event) {
-    event.target.classList.remove('invisible');
-    event.target.classList.remove
-    ('drag-token');
-  }
-  // Drop Function
-  function dragOver(event) {
-      event.preventDefault();
-  }
-
-  function dragEnter(event) {
-      event.preventDefault();
-      event.target.classList.add('cell-hovered');
-  }
-
-  function dragLeave() {
-      event.target.classList.remove('cell-hovered');
-  }
-
-  function dragDrop(event) {
-    event.target.append(draggedItem);
-    event.target.classList.remove('cell-hovered');
-    event.target.removeEventListener('dragover', dragOver);
-    event.target.removeEventListener('dragenter', dragEnter);
-    event.target.removeEventListener('dragleave', dragLeave);
-    if (whosGo === 'Player1') {
-      draggedItem.classList.replace('tictac-token', 'tictac-played');
-      draggedItem.classList.remove('p1-token');
-      draggedItem.draggable = false;
-      player1Turns.push(parseInt(event.target.id));
-      updateTurn();
-    } else {
-      draggedItem.classList.replace('toe-token', 'toe-played');
-      draggedItem.classList.remove('p1-token');
-      draggedItem.draggable = false;
-      player2Turns.push(parseInt(event.target.id));
-      updateTurn();
-    }
-    if (player1Turns.length >= 3 || player2Turns.length >= 3) {
-      checkIfWon();
-    }
-    allowPlayerTurn();
-  }
-
-  function checkIfWon() {
-    //loop through player choices and see if they are all within one of the winning combos
-    winningCombos.forEach(combo => {
-      player1Counter = 0;
-      player2Counter = 0;
-      player1Turns.forEach(turn => {
-        if(combo.includes(turn)){
-          player1Counter++
-        }
+  if (!playingSolo && choicesmade === 2) {
+    playBtn.classList.add('play-animation');
+  } else if (playingSolo && choicesmade === 1) {
+    playBtn.classList.add('play-animation');
+    if (player1TokenChoice === 'tictac') {
+      player2TokenChoice = 'toe';
+      p2Tokens.forEach(token => {
+        token.src = 'images/toe.svg'
+        token.classList.add(`${player2TokenChoice}-token`);
       })
-      player2Turns.forEach(turn => {
-        if(combo.includes(turn)) {
-          player2Counter++
-        }
+    } else {
+      player2TokenChoice = 'tictac';
+      p2Tokens.forEach(token => {
+        token.src = 'images/tictac.svg'
+        token.classList.add(`${player2TokenChoice}-token`);
       })
-      if (player1Counter === 3) {
-        winnerText.textContent = `${player1Name} Wins`;
-        player1Turns = [];
-        player2Turns = [];
-        winnerPopup();
-      } else  if (player2Counter === 3) {
-        winnerText.textContent = `${player2Name} Wins`;
-        winnerPopup();
-        player1Turns = [];
-        player2Turns = [];
-      }
-    })
-    if (player1Turns.length + player2Turns.length  === 9) {
-      winnerText.textContent = `It's a Draw!`
-      winnerPopup()
     }
-  }
-
-  function winnerPopup() {
-    popup.style.display = 'block';
-    replayBtn.addEventListener('click', replay);
-  }
-
-  function replay() {
-    popup.style.display = 'none';
-    gameContainer.innerHTML = gameContainerHTML;
-    cells = document.querySelectorAll('.cell');
-    p1Tokens = document.querySelectorAll('.p1-token');
-    p2Tokens = document.querySelectorAll('.p2-token');
-    setEventListeners();
-    allowPlayerTurn();
   }
 }
 
-function playerVsComp() {
-  gameboard = [1,2,3,4,5,6,7,8,9];
-  p1ChoiceTic.addEventListener('click', p1Tic);
-  p1ChoiceToe.addEventListener('click', p1Toe);
+function allowTurn() {
+  p1Tokens = document.querySelectorAll('.p1-token');
+  p2Tokens = document.querySelectorAll('.p2-token');
+  if (whosGo === 'Player1') {
+    p1Tokens.forEach(p1tok => p1tok.draggable = true);
+    p2Tokens.forEach(p2tok => p2tok.draggable = false);
+  } else if (whosGo === 'Player2' && playingSolo) {
+    p1Tokens.forEach(p1tok => p1tok.draggable = false);
+    p2Tokens.forEach(p2tok => p2tok.draggable = false);
+  } else if (whosGo === 'Player2') {
+    p2Tokens.forEach(p2tok => p2tok.draggable = true);
+    p1Tokens.forEach(p1tok => p1tok.draggable = false);
+  }
+}
+allowTurn();
 
-  function p1Tic(e) {
-    if (!player1Choice) {
-      player1Choice = 'tic';
-      p1ChoiceTic.classList.add('chosen');
-      player2Choice = 'toe';
-    } else if (player1Choice === 'toe') {
-      player1Choice = 'tic';
-      p1ChoiceToe.classList.remove('chosen');
-      p1ChoiceTic.classList.add('chosen');
-      player2Choice = 'toe';
-    }
-    p1Tokens.forEach(p1t => {
-      p1t.src = e.target.src;
-      p1t.classList.add('tictac-token');
-      if (p1t.classList.contains('toe-token')) {
-        p1t.classList.remove('toe-token');
-      }
-    })
-    p2Tokens.forEach(p2t => {
-      p2t.src = p2ChoiceToe.src
-      p2t.classList.add('toe-token');
-      if (p2t.classList.contains('tictac-token')) {
-        p2t.classList.remove('tictac-token');
-      }
-    })
-  }
-  function p1Toe(e) {
-    if (!player1Choice) {
-      player1Choice = 'toe';
-      p1ChoiceToe.classList.add('chosen');
-      player2Choice = 'tic';
-    } else if (player1Choice === 'tic') {
-      player1Choice = 'toe';
-      p1ChoiceTic.classList.remove('chosen');
-      p1ChoiceToe.classList.add('chosen');
-      player2Choice = 'tic';
-    }
-    p1Tokens.forEach(p1tk => {
-      p1tk.src = e.target.src;
-      p1tk.classList.add('toe-token');
-      if (p1tk.classList.contains('tictac-token')) {
-        p1tk.classList.remove('tictac-token');
-      }
-    })
-    p2Tokens.forEach(p2tk => {
-      p2tk.src = p2ChoiceTic.src
-      p2tk.classList.add('tictac-token');
-      if (p2tk.classList.contains('toe-token')) {
-        p2tk.classList.remove('toe-token');
-      }
-    })
-  }
-  // WILL NEED TO LOOK AT BELOW
-  function allowPlayerTurn() {
-    if (whosGo === 'Player1') {
-      p1Tokens.forEach(p1tok => p1tok.draggable = true);
-      p2Tokens.forEach(p2tok => p2tok.draggable = false);
-    } else if (whosGo === 'Player2') {
-      p2Tokens.forEach(p2toke => p2toke.draggable = true);
-      p1Tokens.forEach(p1toke => p1toke.draggable = false);
-    }
-  }
-  allowPlayerTurn();
+function setEventListenersForGame() {
+  p1Tokens.forEach(token => {
+    token.addEventListener('dragstart', dragStart);
+    token.addEventListener('dragend', dragEnd);
+  })
+  
+  p2Tokens.forEach(token => {
+    token.addEventListener('dragstart', dragStart);
+    token.addEventListener('dragend', dragEnd);
+  })
+  
+  cells.forEach(cell => {
+    cell.addEventListener('dragover', dragOver);
+    cell.addEventListener('dragenter', dragEnter);
+    cell.addEventListener('dragleave', dragLeave);
+    cell.addEventListener('drop', dragDrop);
+  })
+}
+setEventListenersForGame();
 
-  function updateTurn() {
-    whosGo === 'Player1' ? whosGo = 'Player2' : whosGo = 'Player1';
-    if (whosGo === 'Player1') {
-      whosTurn.textContent = `${player1Name}'s Turn!`;
-    } else {
-      whosTurn.textContent = `${player2Name}'s Turn!`;
-      setTimeout(compTurn, 2000);
-    }
-  }
+function dragStart(event) {
+  event.target.classList.add('drag-token');
+  setTimeout(() => (event.target.classList.add('invisible')),0);
+  draggedItem = event.target;
+}
 
-  function setEventListeners() {
-    p1Tokens.forEach(tictac => {
-      tictac.addEventListener('dragstart', dragStart);
-      tictac.addEventListener('dragend', dragEnd);
-    })
-    
-    p2Tokens.forEach(toe => {
-      toe.addEventListener('dragstart', dragStart);
-      toe.addEventListener('dragend', dragEnd);
-    })
-    
-    cells.forEach(cell => {
-      cell.addEventListener('dragover', dragOver);
-      cell.addEventListener('dragenter', dragEnter);
-      cell.addEventListener('dragleave', dragLeave);
-      cell.addEventListener('drop', dragDrop);
-    })
-  }
-  setEventListeners()
+function dragEnd(event) {
+  event.target.classList.remove('invisible');
+  event.target.classList.remove
+  ('drag-token');
+}
 
-  // Drag Functions
-  function dragStart(event) {
-    event.target.classList.add('drag-token');
-    setTimeout(() => (event.target.classList.add('invisible')),0);
-    draggedItem = event.target;
-  }
+function dragOver(event) {
+    event.preventDefault();
+}
 
-  function dragEnd(event) {
-    event.target.classList.remove('invisible');
-    event.target.classList.remove
-    ('drag-token');
-  }
-  // Drop Function
-  function dragOver(event) {
-      event.preventDefault();
-  }
+function dragEnter(event) {
+    event.preventDefault();
+    event.target.classList.add('cell-hovered');
+}
 
-  function dragEnter(event) {
-      event.preventDefault();
-      event.target.classList.add('cell-hovered');
-  }
-
-  function dragLeave() {
-      event.target.classList.remove('cell-hovered');
-  }
-
-  function dragDrop(event) {
-    event.target.append(draggedItem);
+function dragLeave() {
     event.target.classList.remove('cell-hovered');
-    event.target.removeEventListener('dragover', dragOver);
-    event.target.removeEventListener('dragenter', dragEnter);
-    event.target.removeEventListener('dragleave', dragLeave);
-    if (whosGo === 'Player1') {
-      draggedItem.classList.replace('tictac-token', 'tictac-played');
-      draggedItem.draggable = false;
-      draggedItem.classList.remove('p1-token');
-      p1Tokens = document.querySelectorAll('.p1-token');
-      player1Turns.push(parseInt(event.target.id));
-      let turnIndex = gameboard.indexOf(parseInt(event.target.id));
-      gameboard.splice(turnIndex, 1);   
-    }
-    if (player1Turns.length >= 3 || player2Turns.length >= 3) {
-      checkIfWon();
+}
+
+function dragDrop(event) {
+  event.target.append(draggedItem);
+  event.target.classList.remove('cell-hovered');
+  event.target.removeEventListener('dragover', dragOver);
+  event.target.removeEventListener('dragenter', dragEnter);
+  event.target.removeEventListener('dragleave', dragLeave);
+  if (whosGo === 'Player1') {
+    draggedItem.classList.replace(`${player1TokenChoice}-token`, `${player1TokenChoice}-played`);
+    draggedItem.classList.remove('p1-token');
+    draggedItem.draggable = false;
+    player1Turns.push(parseInt(event.target.id));
+    if (playingSolo) {
+      let turnIndex = playBoard.indexOf(parseInt(event.target.id));
+      playBoard.splice(turnIndex, 1);   
     }
     updateTurn();
-    allowPlayerTurn();
+  } else if (whosGo === 'Player2' && !playingSolo) {
+    draggedItem.classList.replace(`${player2TokenChoice}-token`, `${player2TokenChoice}-played`);
+    draggedItem.classList.remove('p1-token');
+    draggedItem.draggable = false;
+    player2Turns.push(parseInt(event.target.id));
+    updateTurn();
   }
+  if (player1Turns.length >= 3 || player2Turns.length >= 3) {
+    checkIfWon();
+  }
+  allowTurn();
+}
 
-  function checkIfWon() {
-    //loop through player choices and see if they are all within one of the winning combos
-    if (player1Turns.length + player2Turns.length  === 9) {
+function updateTurn() {
+  whosGo === 'Player1' ? whosGo = 'Player2' : whosGo = 'Player1';
+  if (whosGo === 'Player1') {
+    whosTurn.textContent = `${player1Name}'s Turn!`;
+  } else if (whosGo === 'Player2' && playingSolo) {
+    whosTurn.textContent = `${player2Name}'s Turn!`;
+    setTimeout(compTurn, 2000);
+  } else {
+    whosTurn.textContent = `${player2Name}'s Turn!`;
+  }
+}
+
+function checkIfWon() {
+  winningCombos.forEach(combo => {
+    player1Counter = 0;
+    player2Counter = 0;
+    player1Turns.forEach(turn => {
+      if(combo.includes(turn)){
+        player1Counter++
+      }
+    })
+    player2Turns.forEach(turn => {
+      if(combo.includes(turn)) {
+        player2Counter++
+      }
+    })
+    if (player1Counter === 3) {
+      winnerText.textContent = `${player1Name} Wins`;
+      winnerPopup();
+    } else  if (player2Counter === 3) {
+      winnerText.textContent = `${player2Name} Wins`;
+      winnerPopup();      
+    } else if (player1Turns.length + player2Turns.length  === 9) {
       winnerText.textContent = `It's a Draw!`
       winnerPopup();
-    } else {
-      winningCombos.forEach(combo => {
-        player1Counter = 0;
-        player2Counter = 0;
-        player1Turns.forEach(turn => {
-          if(combo.includes(turn)){
-            player1Counter++
-          }
-        })
-        player2Turns.forEach(turn => {
-          if(combo.includes(turn)) {
-            player2Counter++
-          }
-        })
-        if (player1Counter === 3) {
-          winnerText.textContent = `${player1Name} Wins`;
-          player1Turns = [];
-          player2Turns = [];
-          winnerPopup();
-        } else  if (player2Counter === 3) {
-          winnerText.textContent = `${player2Name} Wins`;
-          winnerPopup();
-          player1Turns = [];
-          player2Turns = [];
-        }
-      })
     }
-  }
-
-  function winnerPopup() {
-    popup.style.display = 'block';
-    replayBtn.addEventListener('click', replay);
-  }
-
-  function replay() {
-    popup.style.display = 'none';
-    gameContainer.innerHTML = gameContainerHTML;
-    cells = document.querySelectorAll('.cell');
-    p1Tokens = document.querySelectorAll('.p1-token');
-    p2Tokens = document.querySelectorAll('.p2-token');
-    setEventListeners();
-    updateTurn();
-    allowPlayerTurn();
-  }
-
-  function compTurn() {
-    let randomIndex = Math.floor(Math.random() * gameboard.length);
-    let turnChoice = gameboard[randomIndex];
-    let turnCell = cellsArray.indexOf(turnChoice);
-    cells[turnCell].append(p2Tokens[0]);
-    p2Tokens[0].classList.remove('p2-token');
-    p2Tokens = document.querySelectorAll('.p2-token');
-    player2Turns.push(parseInt(turnCell + 1));
-    gameboard.splice(randomIndex, 1);
-    checkIfWon();
-    updateTurn();
-    allowPlayerTurn();
-  }
+  })
 }
 
+function winnerPopup() {
+  popup.style.display = 'block';
+  replayBtn.addEventListener('click', replay);
+}
 
+function replay() {
+  player1Counter = 0;
+  player2Counter = 0;
+  player1Turns = [];
+  player2Turns = [];
+  playBoard = [1,2,3,4,5,6,7,8,9];
+  popup.style.display = 'none';
+  gameContainer.innerHTML = gameContainerHTML;
+  cells = document.querySelectorAll('.cell');
+  p1Tokens = document.querySelectorAll('.p1-token');
+  p2Tokens = document.querySelectorAll('.p2-token');
+  setEventListenersForGame();
+  allowTurn();
+}
+
+function compTurn() {
+  let randomIndex = Math.floor(Math.random() * playBoard.length);
+  let turnChoice = playBoard[randomIndex];
+  let turnCell = cellsArray.indexOf(turnChoice);
+  cells[turnCell].append(p2Tokens[0]);
+  p2Tokens[0].classList.remove('p2-token');
+  p2Tokens = document.querySelectorAll('.p2-token');
+  player2Turns.push(parseInt(turnCell + 1));
+  playBoard.splice(randomIndex, 1);
+  checkIfWon();
+  updateTurn();
+  allowTurn();
+}

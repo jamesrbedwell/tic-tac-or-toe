@@ -92,11 +92,44 @@ form button:focus {
 }
 
 .back-btn {
-  margin-top: 10px;
+  margin-top: 20px;
+  color: orange;
+  text-shadow: 2px 2px rgb(148, 60, 1);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.back-btn:hover {
+  transition: all ease-in-out 0.3s;
+  color: rgb(255, 217, 0);
+  text-shadow: 2px 2px rgb(99, 81, 1);
 }
 
 .play-btn {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  color: orange;
+  text-shadow: 2px 2px rgb(148, 60, 1);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.play-btn:hover {
+  transition: all ease-in-out 0.3s;
+  color: rgb(255, 217, 0);
+  text-shadow: 2px 2px rgb(99, 81, 1);
+}
+
+.play-animation {
+  animation: pulse 2s alternate infinite;
+}
+
+@keyframes pulse {
+  100% {
+    text-shadow: 2px 2px rgb(83, 0, 90);
+    letter-spacing: 0.3rem;
+  }
 }
 
 .page2 {
@@ -121,6 +154,10 @@ form button:focus {
   text-align: center;
 }
 
+.choose-token p {
+  font-size: 1.3rem;
+}
+
 .tokens {
   display: flex;
 }
@@ -128,7 +165,12 @@ form button:focus {
 .tokens img {
   width: 50%;
   height: 100px;
-  cursor: pointer;
+  transition: border ease-in-out 0.2s;
+}
+
+.token-hover {
+  transition: border ease-in-out 0.2s;
+  border: 4px dashed orange;
 }
 
 .chosen {
@@ -138,8 +180,19 @@ form button:focus {
 
 /* ------- PAGE 3 -------- */
 
-.back-token-btn {
-  margin-top: 10px;
+.back-choice-btn {
+  margin-top: 15px;
+  color: turquoise;
+  text-shadow: 2px 2px rgb(1, 99, 99);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.back-choice-btn:hover {
+  transition: all ease-in-out 0.3s;
+  color: rgb(30, 255, 0);
+  text-shadow: 2px 2px rgb(9, 99, 1);
 }
 
 .page3 {
@@ -246,7 +299,7 @@ form button:focus {
 
 .toe-played {
   width: 80px;
-  filter: drop-shadow( 1px 1px #000 );
+  filter: drop-shadow( 2px 2px 2px #000 );
 }
 
 .drag-token {
@@ -297,22 +350,6 @@ form button:focus {
   box-shadow: 4px 4px darkgoldenrod;
   transition: all ease-in-out 0.3s
 }
-
-/* .popup-content span {
-  cursor: pointer;
-  float: right;
-  margin-right: 10px;
-  color: red;
-  transition: all ease-in-out 0.3s
-}
-
-.popup-content span:hover {
-  float: right;
-  margin-right: 10px;
-  color: darkred;
-  transition: all ease-in-out 0.3s
-} */
-
 
 .popup-content h1 {
   margin-top: 15%;

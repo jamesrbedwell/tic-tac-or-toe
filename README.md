@@ -78,11 +78,11 @@ I had plans to have a foot that you could pull the toes off and also a tictac co
     - [x] headings etc.
     - [x] inputs for player names
 
-# STYLES BROKEN DOWN
+#### STYLES BROKEN DOWN
 
 - [x] Create 3 100% divs, with buttons that link back and forward with a transition. **Maybe not back and forward**
 
-# EXTRA HTML/JS
+#### EXTRA HTML/JS
 
 - [x] Input for players to put in their names
 - [x] Option to choose their tokens

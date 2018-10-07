@@ -70,7 +70,7 @@ function back() {
 }
 
 function play() {
-  if (player1TokenChoice === 'tic' && player2TokenChoice === 'tic') {
+  if (player1TokenChoice === 'tictac' && player2TokenChoice === 'tictac') {
     p2Tokens.forEach(p2tok => {
       p2tok.src = 'images/tictacalt.svg';
     })

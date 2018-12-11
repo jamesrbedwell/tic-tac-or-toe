@@ -113,6 +113,9 @@ let player2Token;
 let player1Turns = [];
 let player2Turns = [];
 
+let player1Counter;
+let player2Counter;
+
 let draggedItem;
 let gameContainerHTML;
 
@@ -369,6 +372,7 @@ function dragDrop(event) {
 }
 
 function updateTurn() {
+  console.log(whosGo)
   whosGo === 'Player1' ? whosGo = 'Player2' : whosGo = 'Player1';
   if (whosGo === 'Player1') {
     whosTurn.textContent = `${player1Name}'s Turn!`;
@@ -431,7 +435,9 @@ function replay() {
   p2Tokens = document.querySelectorAll('.p2-token');
   p1WinsText = document.querySelector('.p1wins');
   p2WinsText = document.querySelector('.p2wins');
+  won = false;
   setEventListenersForGame();
+  updateTurn();
   allowTurn();
   p1WinsText.textContent = `Wins: ${p1Wins}`;
   p2WinsText.textContent = `Wins: ${p2Wins}`;
